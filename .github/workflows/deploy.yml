@@ -35,6 +35,9 @@ jobs:
     needs: push-to-registry
     runs-on: ubuntu-latest
     environment: production
+    env:
+      HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+      IMG: ghcr.io/martin-kugler/python-cicd-kata:${{ github.sha }}
     steps:
       - run: curl --fail -sS --get
                --data-urlencode "imgURL=$IMG" "$HOOK"
